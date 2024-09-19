@@ -1,6 +1,6 @@
 from io import BytesIO
 
-import weasyprint
+# import weasyprint
 from celery import shared_task
 from django.contrib.staticfiles import finders
 from django.core.mail import EmailMessage
@@ -24,13 +24,13 @@ def payment_completed(order_id):
         subject, message, 'admin@myshop.com', [order.email]
     )
     # generate PDF
-    html = render_to_string('orders/order/pdf.html', {'order': order})
-    out = BytesIO()
-    stylesheets = [weasyprint.CSS(finders.find('css/pdf.css'))]
-    weasyprint.HTML(string=html).write_pdf(out, stylesheets=stylesheets)
-    # attach PDF file
-    email.attach(
-        f'order_{order.id}.pdf', out.getvalue(), 'application/pdf'
-    )
+    # html = render_to_string('orders/order/pdf.html', {'order': order})
+    # out = BytesIO()
+    # stylesheets = [weasyprint.CSS(finders.find('css/pdf.css'))]
+    # weasyprint.HTML(string=html).write_pdf(out, stylesheets=stylesheets)
+    # # attach PDF file
+    # email.attach(
+    #     f'order_{order.id}.pdf', out.getvalue(), 'application/pdf'
+    # )
     # send e-mail
     email.send()
